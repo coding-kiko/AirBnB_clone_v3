@@ -9,6 +9,7 @@ from models import storage
 @app_views.route('/states', methods=['GET'])
 @app_views.route('/states/<state_id>', methods=['GET'])
 def get_states(state_id=None):
+    print("llega -----------------")
     """Retrieves the list of all State objects"""
     state_list = []
     if (state_id):
@@ -24,3 +25,4 @@ def get_states(state_id=None):
 
 
 #@app_views.route('/states/<state_id>', methods=['DELETE'])
+#def delete_state_id(state_id):
