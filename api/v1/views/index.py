@@ -12,7 +12,7 @@ from models import storage
 from models.user import User
 
 
-@app_views.route('/status')
+@app_views.route('/status', strict_slashes=False)
 def status():
     '''returns request status'''
     jsn = {
@@ -21,7 +21,7 @@ def status():
     return (jsonify(**jsn))
 
 
-@app_views.route('/stats')
+@app_views.route('/stats', strict_slashes=False)
 def n_of_inst():
     '''retrieves n of each instance'''
     classes = {"amenities": Amenity, "cities": City, "places": Place,
