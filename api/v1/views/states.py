@@ -2,12 +2,11 @@
 """ handles restful api actions """
 
 from flask import Flask, jsonify, abort
-from models.state import State
 from api.v1.views import app_views
 from models import storage
 
-@app_views.route('/api/v1/states', methods=['GET'], strict_slashes=False)
-@app_views.route('/api/v1/states/<state_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/states', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['GET'], strict_slashes=False)
 def get_states(state_id=None):
     print("llega -----------------")
     """Retrieves the list of all State objects"""
@@ -21,7 +20,7 @@ def get_states(state_id=None):
     else:
         for state in storage.all("State").values():
             state_list.append(state.to_dict())
-    return (jsonify(**state_list))
+    return (jsonify(state_list))
 
 
 #@app_views.route('/states/<state_id>', methods=['DELETE'])
