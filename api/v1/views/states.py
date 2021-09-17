@@ -6,8 +6,8 @@ from models.state import State
 from api.v1.views import app_views
 from models import storage
 
-@app_views.route('/states', methods=['GET'])
-@app_views.route('/states/<state_id>', methods=['GET'])
+@app_views.route('/api/v1/states', methods=['GET'])
+@app_views.route('/api/v1/states/<state_id>', methods=['GET'])
 def get_states(state_id=None):
     print("llega -----------------")
     """Retrieves the list of all State objects"""
@@ -23,6 +23,7 @@ def get_states(state_id=None):
             state_list.append(state.to_dict())
     return (jsonify(**state_list))
 
-
-#@app_views.route('/states/<state_id>', methods=['DELETE'])
-#def delete_state_id(state_id):
+'''
+@app_views.route('/states/<state_id>', methods=['DELETE'])
+def delete_state_id(state_id):
+'''
