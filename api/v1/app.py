@@ -20,7 +20,7 @@ def remove_sesh(self):
 def page_not_found(err):
     '''404 page not found handler'''
     err = {"error": "Not found"}
-    return (jsonify(**err))
+    return (jsonify(**err), 404)
 
 if __name__ == "__main__":
     h = getenv('HBNB_API_HOST')
