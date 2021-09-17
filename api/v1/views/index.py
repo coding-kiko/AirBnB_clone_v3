@@ -12,7 +12,7 @@ from models import storage
 from models.user import User
 
 
-@app.route('/status')
+@app_views.route('/status')
 def status():
     '''returns request status'''
     jsn = {
@@ -21,7 +21,7 @@ def status():
     return (jsonify(**jsn))
 
 
-@app_views.route('/api/v1/stats')
+@app_views.route('/stats')
 def n_of_inst():
     '''retrieves n of each instance'''
     print("calling the right route")
