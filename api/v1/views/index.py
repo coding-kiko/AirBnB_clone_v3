@@ -24,9 +24,8 @@ def status():
 @app_views.route('/stats')
 def n_of_inst():
     '''retrieves n of each instance'''
-    print("calling the right route")
-    classes = {"amenity": Amenity, "city": City, "place": Place,
-               "review": Review, "state": State, "user": User}
+    classes = {"amenities": Amenity, "cities": City, "places": Place,
+               "reviews": Review, "states": State, "users": User}
     for cls_str, cls in classes.items():
         classes[cls_str] = storage.count(cls)
     return (jsonify(**classes))
