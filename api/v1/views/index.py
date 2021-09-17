@@ -25,6 +25,7 @@ def status():
 @app_views.route('/api/v1/stats')
 def n_of_inst():
     '''retrieves n of each instance'''
+    print("calling the right route")
     classes = {"amenity": Amenity, "city": City, "place": Place,
                "review": Review, "state": State, "user": User}
     for cls_str, cls in classes.items():
