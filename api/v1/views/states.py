@@ -8,7 +8,6 @@ from models import storage
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 @app_views.route('/states/<string:state_id>', methods=['GET'], strict_slashes=False)
 def get_states(state_id=None):
-    print("llega -----------------")
     """Retrieves the list of all State objects"""
     state_list = []
     if (state_id):
