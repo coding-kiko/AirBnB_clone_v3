@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 ''' Index '''
 
-from api.v1.views import app_views
+from api.v1.views import app_views, app
 from models.amenity import Amenity
 from models.city import City
-from flask import Flask, jsonify
+from flask import jsonify
 from models.place import Place
 from models.review import Review
 from models.state import State
@@ -12,8 +12,7 @@ from models import storage
 from models.user import User
 
 
-
-@app_views.route('/status')
+@app.route('/status')
 def status():
     '''returns request status'''
     jsn = {
