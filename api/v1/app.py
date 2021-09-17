@@ -17,7 +17,7 @@ def remove_sesh(self):
 
 
 @app.errorhandler(404)
-def page_not_found():
+def page_not_found(err):
     '''404 page not found handler'''
     err = {"error": "Not found"}
     return (jsonify(**err))
