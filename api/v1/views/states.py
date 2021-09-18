@@ -29,7 +29,7 @@ def delete_state_id(state_id):
     d = {}
     for state in storage.all("State").values():
         if state.id == state_id:
-            state.delete()
+            storage.delete(state)
             f = True
     if f:
         return (jsonify(**d))
