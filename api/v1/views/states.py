@@ -64,8 +64,6 @@ def update_state(state_id):
 
     if not new_state:
         abort(400, 'Not a JSON')
-    if "name" not in new_state:
-        abort(400, 'Missing name')
 
     for key in ignored_keys:
         if key in new_state:
