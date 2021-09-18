@@ -71,9 +71,7 @@ def update_state(state_id):
 
     state = storage.get("State", state_id)
     if state:
-        for key, value in new_state.items():
-            setattr(state, key, value)
-
+        state.__dict__.update(**new_state)
         storage.save()
         return (jsonify(state.to_dict()), 200)
 
