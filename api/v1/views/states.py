@@ -64,10 +64,10 @@ def update_state(state_id):
     try:
         new_state = request.get_json()
     except:
-        abort(400, 'Not a JSON')
+        abort(401, 'Not a JSON')
 
     if "name" not in new_state:
-        abort(400, 'Missing name')
+        abort(401, 'Missing name')
 
     for key in ignored_keys:
         if key in new_state:
