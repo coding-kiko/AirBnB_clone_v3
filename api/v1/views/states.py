@@ -32,7 +32,7 @@ def delete_state_id(state_id):
         if state.id == state_id:
             storage.delete(state)
             storage.save()
-            return (jsonify(**empty_dict))
+            return (jsonify(**empty_dict), 200)
 
     abort(404)
 
