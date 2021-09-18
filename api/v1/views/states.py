@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ handles restful api actions """
 
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, abort, request, make_response
 from api.v1.views import app_views
 from models import storage
 from models.state import State
@@ -26,13 +26,12 @@ def get_states(state_id=None):
 @app_views.route('/states/<string:state_id>', methods=['DELETE'], strict_slashes=False)
 def delete_state_id(state_id):
     """ Deletes an state obj based on its id """
-    empty_dict = {}
     
     for state in storage.all("State").values():
         if state.id == state_id:
             storage.delete(state)
             storage.save()
-            return (jsonify(**empty_dict), 200)
+            return (jsonify({}), 200)
 
     abort(404)
 
@@ -52,7 +51,7 @@ def create_state():
     storage.new(obj)
     storage.save()
 
-    return (jsonify(obj.to_dict()), 201)
+    return make_response(jsonify(obj.to_dict()), 201)
 
 
 @app_views.route('/states/<string:state_id>', methods=['PUT'], strict_slashes=False)
@@ -71,7 +70,9 @@ def update_state(state_id):
 
     state = storage.get("State", state_id)
     if state:
-        state.__dict__.update(**new_state)
+        for key, value in new_state.items():
+            setattr(state, key, value)
+
         storage.save()
         return (jsonify(state.to_dict()), 200)
 
