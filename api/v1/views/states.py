@@ -4,6 +4,7 @@
 from flask import Flask, jsonify, abort, request
 from api.v1.views import app_views
 from models import storage
+from models.state import State
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 @app_views.route('/states/<string:state_id>', methods=['GET'], strict_slashes=False)
@@ -13,8 +14,8 @@ def get_states(state_id=None):
     if (state_id):
         for state in storage.all("State").values():
             if state.id == state_id:
-                state_list.append(state)
-        if len(state_list == 0):
+                state_list.append(state.to_dict())
+        if (len(state_list) == 0):
             abort(404)
     else:
         for state in storage.all("State").values():
@@ -25,22 +26,59 @@ def get_states(state_id=None):
 @app_views.route('/states/<string:state_id>', methods=['DELETE'], strict_slashes=False)
 def delete_state_id(state_id):
     """ Deletes an state obj based on its id """
-    f = False
-    d = {}
+    empty_dict = {}
+    
     for state in storage.all("State").values():
         if state.id == state_id:
             storage.delete(state)
-            f = True
-    if f:
-        return (jsonify(**d))
+            storage.save()
+            return (jsonify(**empty_dict))
+
     abort(404)
-'''
-@app_views.route('/states/<string:state_id>', methods=['POST'], strict_slashes=False)
-def create_state(state_id):
+
+
+@app_views.route('/states', methods=['POST'], strict_slashes=False)
+def create_state():
     """ creates an state obj based on its id """
+    try:
+        new_state = request.get_json()
+    except:
+        abort(400, 'Not a JSON')
+
+    if "name" not in new_state:
+        abort(400, 'Missing name')
+
+    obj = State(**new_state)
+    storage.new(obj)
+    storage.save()
+
+    return (jsonify(obj.to_dict()), 201)
 
 
 @app_views.route('/states/<string:state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
     """ updates an state obj based on its id """
-'''
+
+    ignored_keys = ["id", "created_at", "updated_at"]
+
+    try:
+        new_state = request.get_json()
+    except:
+        abort(400, 'Not a JSON')
+
+    if "name" not in new_state:
+        abort(400, 'Missing name')
+
+    for key in ignored_keys:
+        if key in new_state:
+            del new_state[key]
+
+    state = storage.get("State", state_id)
+    if state:
+        for key, value in new_state.items():
+            setattr(state, key, value)
+
+        storage.save()
+        return (jsonify(state.to_dict()), 200)
+
+    abort(404)
