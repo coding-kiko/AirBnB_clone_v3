@@ -34,7 +34,7 @@ def delete_state_id(state_id):
     if f:
         return (jsonify(**d))
     abort(404)
-
+'''
 @app_views.route('/states/<string:state_id>', methods=['POST'], strict_slashes=False)
 def create_state(state_id):
     """ creates an state obj based on its id """
@@ -43,3 +43,4 @@ def create_state(state_id):
 @app_views.route('/states/<string:state_id>', methods=['PUT'], strict_slashes=False)
 def update_state(state_id):
     """ updates an state obj based on its id """
+'''
