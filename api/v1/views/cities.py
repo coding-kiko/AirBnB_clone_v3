@@ -22,7 +22,7 @@ def get_city_by_id(city_id):
     """Retrieves city by id"""
     city = storage.get("City", city_id)
     if city:
-        return (jsonify(city.to_dict()))
+        return (jsonify(city.to_dict()), 200)
     abort(404)
 
 
