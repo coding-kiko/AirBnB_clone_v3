@@ -30,12 +30,11 @@ def get_city_by_id(city_id):
 def delete_city_id(city_id):
     """ Deletes an city by id """
     
-    for city in storage.all("City").values():
-        if city.id == city_id:
-            storage.delete(city)
-            storage.save()
-            return (jsonify({}), 200)
-
+    city = storage.get("City", city_id)
+    if city:
+        storage.delete(city)
+        storage.save()
+        return (jsonify({}), 200)
     abort(404)
 
 
