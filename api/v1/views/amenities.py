@@ -11,14 +11,14 @@ from models.amenity import Amenity
 def get_amenities(amenity_id=None):
     """Retrieves the list of all amenity objects"""
     if (amenity_id):
-        for amenity in storage.all("amenity").values():
+        for amenity in storage.all("Amenity").values():
             if amenity.id == amenity_id:
                 return (jsonify(amenity.to_dict()))
         abort(404)
 
     else:
         amenity_list = []
-        for amenity in storage.all("amenity").values():
+        for amenity in storage.all("Amenity").values():
             amenity_list.append(amenity.to_dict())
         return (jsonify(amenity_list))
 
@@ -27,7 +27,7 @@ def get_amenities(amenity_id=None):
 def delete_amenity_id(amenity_id):
     """ Deletes an amenity obj based on its id """
     
-    for amenity in storage.all("amenity").values():
+    for amenity in storage.all("Amenity").values():
         if amenity.id == amenity_id:
             storage.delete(amenity)
             storage.save()
@@ -68,7 +68,7 @@ def update_amenity(amenity_id):
         if key in new_amenity:
             del new_amenity[key]
 
-    amenity = storage.get("amenity", amenity_id)
+    amenity = storage.get("Amenity", amenity_id)
     if amenity:
         for key, value in new_amenity.items():
             setattr(amenity, key, value)
