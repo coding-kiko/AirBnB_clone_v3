@@ -45,7 +45,6 @@ def create_review(place_id):
     new_review = request.get_json()
 
     if not storage.get("Place", place_id):
-        print("aca")
         abort(404)
     if not new_review:
         abort(400, 'Not a JSON')
