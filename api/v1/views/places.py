@@ -20,6 +20,7 @@ def get_city_places(city_id):
         return (jsonify(places_list))
     abort(404)
 
+
 @app_views.route('/places/<string:place_id>', methods=['GET'],
                  strict_slashes=False)
 def get_place_by_id(place_id):
