@@ -12,6 +12,7 @@ app.register_blueprint(app_views, url_prefix="/api/v1")
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 CORS(app, resources={"/*": {"origins": "0.0.0.0"}})
 
+
 @app.teardown_appcontext
 def remove_sesh(self):
     '''remove the current SQLAlchemy Session after request'''
