@@ -51,6 +51,7 @@ def create_city(state_id):
     if "name" not in new_city:
         abort(400, 'Missing name')
 
+    new_city["state_id"] = state_id
     obj = City(**new_city)
     storage.new(obj)
     storage.save()
