@@ -10,7 +10,7 @@ from models.city import City
 def get_state_cities(state_id):
     """Retrieves all cities of a state"""
     if not storage.get("State", state_id):
-        abort (404)
+        abort(404)
     cities_list = []
     for city in storage.all("City").values():
         if city.state_id == state_id:
@@ -22,7 +22,7 @@ def get_city_by_id(city_id):
     """Retrieves city by id"""
     city = storage.get("City", city_id)
     if city:
-        return (jsonify(city.to_dict()), 200)
+        return (jsonify(city.to_dict()))
     abort(404)
 
 
