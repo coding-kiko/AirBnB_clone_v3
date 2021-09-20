@@ -6,8 +6,10 @@ from api.v1.views import app_views
 from models import storage
 from models.user import User
 
+
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
-@app_views.route('/users/<string:user_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/users/<string:user_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_users(user_id=None):
     """Retrieves the list of all user objects"""
     if (user_id):
@@ -23,10 +25,11 @@ def get_users(user_id=None):
         return (jsonify(user_list))
 
 
-@app_views.route('/users/<string:user_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/users/<string:user_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_user_id(user_id):
     """ Deletes an user obj based on its id """
-    
+
     for user in storage.all("User").values():
         if user.id == user_id:
             storage.delete(user)
@@ -56,7 +59,8 @@ def create_user():
     return (jsonify(obj.to_dict()), 201)
 
 
-@app_views.route('/users/<string:user_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/users/<string:user_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_user(user_id):
     """ updates an user obj based on its id """
 

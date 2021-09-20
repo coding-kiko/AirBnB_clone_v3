@@ -6,7 +6,9 @@ from api.v1.views import app_views
 from models import storage
 from models.review import Review
 
-@app_views.route('/places/<place_id>/reviews', methods=['GET'], strict_slashes=False)
+
+@app_views.route('/places/<place_id>/reviews', methods=['GET'],
+                 strict_slashes=False)
 def get_place_reviews(place_id):
     """Retrieves all reviews of a place"""
     if not storage.get("Place", place_id):
@@ -17,7 +19,9 @@ def get_place_reviews(place_id):
             reviews_list.append(review.to_dict())
     return (jsonify(reviews_list))
 
-@app_views.route('/reviews/<string:review_id>', methods=['GET'], strict_slashes=False)
+
+@app_views.route('/reviews/<string:review_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_review_by_id(review_id):
     """Retrieves review by id"""
     review = storage.get("Review", review_id)
@@ -26,10 +30,11 @@ def get_review_by_id(review_id):
     abort(404)
 
 
-@app_views.route('/reviews/<string:review_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/reviews/<string:review_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_review_id(review_id):
     """ Deletes an review by id """
-    
+
     review = storage.get("Review", review_id)
     if review:
         storage.delete(review)
@@ -38,7 +43,8 @@ def delete_review_id(review_id):
     abort(404)
 
 
-@app_views.route('/places/<place_id>/reviews', methods=['POST'], strict_slashes=False)
+@app_views.route('/places/<place_id>/reviews', methods=['POST'],
+                 strict_slashes=False)
 def create_review(place_id):
     """ creates an review obj based on place id """
 
@@ -63,7 +69,8 @@ def create_review(place_id):
     return (jsonify(obj.to_dict()), 201)
 
 
-@app_views.route('/reviews/<string:review_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/reviews/<string:review_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_review(review_id):
     """ updates an review obj based on its id """
 

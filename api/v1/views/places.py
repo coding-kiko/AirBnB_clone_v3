@@ -6,7 +6,9 @@ from api.v1.views import app_views
 from models import storage
 from models.place import Place
 
-@app_views.route('/cities/<string:city_id>/places', methods=['GET'], strict_slashes=False)
+
+@app_views.route('/cities/<string:city_id>/places', methods=['GET'],
+                 strict_slashes=False)
 def get_city_places(city_id):
     """Gets all places from given city"""
     city = storage.get("City", city_id)
@@ -18,7 +20,8 @@ def get_city_places(city_id):
         return (jsonify(places_list))
     abort(404)
 
-@app_views.route('/places/<string:place_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/places/<string:place_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_place_by_id(place_id):
     """Retrieves a place by id"""
     place = storage.get("Place", place_id)
@@ -27,10 +30,11 @@ def get_place_by_id(place_id):
     abort(404)
 
 
-@app_views.route('/places/<string:place_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/places/<string:place_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_place_id(place_id):
     """ Deletes an place obj based on its id """
-    
+
     for place in storage.all("Place").values():
         if place.id == place_id:
             storage.delete(place)
@@ -40,7 +44,8 @@ def delete_place_id(place_id):
     abort(404)
 
 
-@app_views.route('/cities/<string:city_id>/places', methods=['POST'], strict_slashes=False)
+@app_views.route('/cities/<string:city_id>/places', methods=['POST'],
+                 strict_slashes=False)
 def create_place(city_id):
     """ creates an place obj based on its id """
 
@@ -65,7 +70,9 @@ def create_place(city_id):
         return (jsonify(obj.to_dict()), 201)
     abort(404)
 
-@app_views.route('/places/<string:place_id>', methods=['PUT'], strict_slashes=False)
+
+@app_views.route('/places/<string:place_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_place(place_id):
     """ updates an place obj based on its id """
 

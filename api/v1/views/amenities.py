@@ -6,8 +6,10 @@ from api.v1.views import app_views
 from models import storage
 from models.amenity import Amenity
 
+
 @app_views.route('/amenities', methods=['GET'], strict_slashes=False)
-@app_views.route('/amenities/<string:amenity_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/amenities/<string:amenity_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_amenities(amenity_id=None):
     """Retrieves the list of all amenity objects"""
     if (amenity_id):
@@ -23,10 +25,11 @@ def get_amenities(amenity_id=None):
         return (jsonify(amenity_list))
 
 
-@app_views.route('/amenities/<string:amenity_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/amenities/<string:amenity_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_amenity_id(amenity_id):
     """ Deletes an amenity obj based on its id """
-    
+
     for amenity in storage.all("Amenity").values():
         if amenity.id == amenity_id:
             storage.delete(amenity)
@@ -54,7 +57,8 @@ def create_amenity():
     return (jsonify(obj.to_dict()), 201)
 
 
-@app_views.route('/amenities/<string:amenity_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/amenities/<string:amenity_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_amenity(amenity_id):
     """ updates an amenity obj based on its id """
 
