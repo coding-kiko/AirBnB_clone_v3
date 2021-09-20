@@ -2,6 +2,7 @@
 """ app.py """
 
 from api.v1.views import app_views
+from flask_cors import CORS
 from flask import Flask, jsonify
 from models import storage
 from os import getenv
@@ -9,7 +10,7 @@ from os import getenv
 app = Flask(__name__)
 app.register_blueprint(app_views, url_prefix="/api/v1")
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-
+CORS(app, resources={"/*": {"origins": "0.0.0.0"}})
 
 @app.teardown_appcontext
 def remove_sesh(self):
