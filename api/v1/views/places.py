@@ -57,6 +57,7 @@ def create_place(city_id):
         if "name" not in new_place:
             abort(400, 'Missing name')
 
+        new_place["city_id"] = city_id
         obj = Place(**new_place)
         storage.new(obj)
         storage.save()
