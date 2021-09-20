@@ -6,8 +6,10 @@ from api.v1.views import app_views
 from models import storage
 from models.state import State
 
+
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
-@app_views.route('/states/<string:state_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_states(state_id=None):
     """Retrieves the list of all State objects"""
     if (state_id):
@@ -23,10 +25,11 @@ def get_states(state_id=None):
         return (jsonify(state_list))
 
 
-@app_views.route('/states/<string:state_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_state_id(state_id):
     """ Deletes an state obj based on its id """
-    
+
     for state in storage.all("State").values():
         if state.id == state_id:
             storage.delete(state)
@@ -54,7 +57,8 @@ def create_state():
     return (jsonify(obj.to_dict()), 201)
 
 
-@app_views.route('/states/<string:state_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_state(state_id):
     """ updates an state obj based on its id """
 
